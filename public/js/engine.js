@@ -1,7 +1,19 @@
 var canvas = document.createElement("canvas");
 var ctx = canvas.getContext("2d");
-canvas.width = window.innerWidth;
-canvas.height = window.innerHeight;
+canvas.width = 860;
+canvas.height = 660;
+canvas.setAttribute("style", "margin-left:0;padding-right: 0; margin-left: auto; margin-right: auto; display: block;");
+
+var c_x, x_y;
+c_x = c_y = 0;
+var obj = canvas;
+if (obj.offsetParent) {
+    do {
+        c_x += obj.offsetLeft;
+        x_y  += obj.offsetTop;
+    } while (obj = obj.offsetParent);
+}
+
 document.body.appendChild(canvas);
 
 var bgReady = false;
@@ -17,7 +29,7 @@ var heroImage = new Image();
 heroImage.onload = function () {
   heroReady = true;
 };
-heroImage.src = "images/soldier_1.png";
+heroImage.src = "images/here1.png";
 
 var hero = {
   speed: 256
@@ -40,16 +52,16 @@ var reset = function () {
 
 // Update game objects
 var update = function (modifier) {
-  if (38 in keysDown) { // Player holding up
+  if (38 in keysDown && hero.y > 10 ) { // Player holding up
     hero.y -= hero.speed * modifier;
   }
-  if (40 in keysDown) { // Player holding down
+  if (40 in keysDown && hero.y < (canvas.height-64)) { // Player holding down
     hero.y += hero.speed * modifier;
   }
-  if (37 in keysDown) { // Player holding left
+  if (37 in keysDown && hero.x > 10) { // Player holding left
     hero.x -= hero.speed * modifier;
   }
-  if (39 in keysDown) { // Player holding right
+  if (39 in keysDown && hero.x < (canvas.width-64)) { // Player holding right
     hero.x += hero.speed * modifier;
   }
 };
@@ -64,7 +76,14 @@ var render = function () {
     ['t','d','d','d','d','d','d','d','d','d','d','d','d','d','d','d','t'],
     ['t','d','d','d','d','d','d','d','d','d','d','d','d','d','d','d','t'],
     ['t','d','d','d','d','d','d','d','d','d','d','d','d','d','d','d','t'],
-    ['t','d','d','d','d','d','d','d','d','d','d','d','d','d','d','d','t']
+    ['t','d','d','d','d','d','d','d','d','d','d','d','d','d','d','d','t'],
+    ['t','d','d','d','d','d','d','d','d','d','d','d','d','d','d','d','t'],
+    ['t','d','d','d','d','d','d','d','d','d','d','d','d','d','d','d','t'],
+    ['t','d','d','d','d','d','d','d','d','d','d','d','d','d','d','d','t'],
+    ['t','d','d','d','d','d','d','d','d','d','d','d','d','d','d','d','t'],
+    ['t','d','d','d','d','d','d','d','d','d','d','d','d','d','d','d','t'],
+    ['t','d','d','d','d','d','d','d','d','d','d','d','d','d','d','d','t'],
+    ['t','t','t','t','t','t','t','t','t','t','t','t','t','t','t','t','t']
   ];
 
   var lookup = {
